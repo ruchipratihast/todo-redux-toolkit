@@ -10,30 +10,43 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo } from '../store/features/TodoSlice';
+import { addTodo, deleteTodo, clearTodo, editTodo } from '../store/features/TodoSlice';
 
 const Todo = () => {
-const dispatch = useDispatch();
-
-const allTodo = useSelector((state) => state.todo.todos);
+  const dispatch = useDispatch();
+  const allTodo = useSelector((state) => state.todo.todos);
 
   const [input, setInput] = useState('');
-  const [todos, setTodos] = useState([]);
+  const [editId, setEditId] = useState(null);
 
   const handleAddTodo = () => {
     if (input.trim()) {
-      //setTodos([...todos, input.trim()]); 
-      dispatch(addTodo({
-        id:Date.now(),
-        text: input
-      }))
+      if (editId !== null) {
+        dispatch(editTodo({ id: editId, newText: input.trim() }));
+        setEditId(null);
+      } else {
+        dispatch(addTodo({
+          id: Date.now(),
+          text: input.trim()
+        }));
+      }
       setInput('');
     }
   };
 
-  const handleRemoveTodo = (indexToRemove) => {
-    // setTodos(todos.filter((_, i) => i !== indexToRemove));
+  const handleRemoveTodo = (todoId) => {
+    dispatch(deleteTodo(todoId));
+    if (todoId === editId) {
+      setEditId(null);
+      setInput('');
+    }
+  };
+
+  const handleEditClick = (todo) => {
+    setInput(todo.text);
+    setEditId(todo.id);
   };
 
   return (
@@ -46,25 +59,38 @@ const allTodo = useSelector((state) => state.todo.todos);
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <Button colorScheme="blue" onClick={handleAddTodo}>
-          Add
+        <Button colorScheme={editId !== null ? "blue" : "green"} onClick={handleAddTodo}>
+          {editId !== null ? "Update" : "Add"}
         </Button>
       </HStack>
 
       <VStack spacing={3} align="stretch">
         {allTodo.map((todo) => (
-          <HStack key={todo.id} justify="space-between" p={3} borderWidth={1} borderRadius="md">
+          <HStack key={todo.id} justify="space-between" p={3} borderWidth={1} borderRadius="md" bg={'#e7ebff'}>
             <Text>{todo.text}</Text>
-            <IconButton
-              icon={<RiDeleteBin6Line />}
-              size="sm"
-              colorScheme="red"
-              onClick={() => handleRemoveTodo(index)}
-              aria-label="Remove Todo"
-            />
+            <HStack spacing={2}>
+              <IconButton
+                icon={<MdOutlineModeEditOutline />}
+                size="sm"
+                colorScheme="blue"
+                onClick={() => handleEditClick(todo)}
+                aria-label="Edit Todo"
+              />
+              <IconButton
+                icon={<RiDeleteBin6Line />}
+                size="sm"
+                colorScheme="red"
+                onClick={() => handleRemoveTodo(todo.id)}
+                aria-label="Remove Todo"
+              />
+            </HStack>
           </HStack>
         ))}
       </VStack>
+
+      <Button mt={2} colorScheme="red" onClick={() => dispatch(clearTodo())}>
+        Clear All
+      </Button>
     </Box>
   );
 };
