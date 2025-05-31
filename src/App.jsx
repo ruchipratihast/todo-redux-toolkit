@@ -1,11 +1,14 @@
 import { Box, Button } from '@chakra-ui/react'
 import Todo from './components/Todo'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 function App() {
   return (
-    <Box p={4}>
-      <Todo />
-    </Box>
+    <Provider store={store}>
+  <Todo />
+</Provider>
+
   )
 }
 

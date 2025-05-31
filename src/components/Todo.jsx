@@ -10,20 +10,30 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo } from '../store/features/TodoSlice';
 
 const Todo = () => {
+const dispatch = useDispatch();
+
+const allTodo = useSelector((state) => state.todo.todos);
+
   const [input, setInput] = useState('');
   const [todos, setTodos] = useState([]);
 
   const handleAddTodo = () => {
     if (input.trim()) {
-      setTodos([...todos, input.trim()]);
+      //setTodos([...todos, input.trim()]); 
+      dispatch(addTodo({
+        id:Date.now(),
+        text: input
+      }))
       setInput('');
     }
   };
 
   const handleRemoveTodo = (indexToRemove) => {
-    setTodos(todos.filter((_, i) => i !== indexToRemove));
+    // setTodos(todos.filter((_, i) => i !== indexToRemove));
   };
 
   return (
@@ -42,9 +52,9 @@ const Todo = () => {
       </HStack>
 
       <VStack spacing={3} align="stretch">
-        {todos.map((todo, index) => (
-          <HStack key={index} justify="space-between" p={3} borderWidth={1} borderRadius="md">
-            <Text>{todo}</Text>
+        {allTodo.map((todo) => (
+          <HStack key={todo.id} justify="space-between" p={3} borderWidth={1} borderRadius="md">
+            <Text>{todo.text}</Text>
             <IconButton
               icon={<RiDeleteBin6Line />}
               size="sm"
