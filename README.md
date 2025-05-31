@@ -1,15 +1,27 @@
-# 📝 Todo App
+# Todo App 📝
 
-A simple Todo application built with:
-
-- ⚛️ React (JavaScript)
-- ⚡ Bun (as the runtime & package manager)
-- 🎨 Chakra UI (for beautiful, accessible components)
-- 🛠️ Redux Toolkit (for state management)
+A simple Todo app built using **React**, **Redux Toolkit**, **Chakra UI**, and **Bun**.
 
 ---
 
-## 📦 Installation
+## 🔥 Features
+- Add new todos
+- Edit existing todos
+- Delete individual todos
+- Clear all todos
 
-```bash
-bun install
+---
+
+## 🖼️ Screenshots
+
+### 1. Starting
+![Starting](./screenshot/1.png)
+
+### 2. Added Some Todos
+![Added Todos](./screenshot/2.png)
+
+### 3. Updating Todo
+![Updating Todo](./screenshot/3.png)
+
+### 4. Updated Todo
+![Updated Todo](./screenshot/4.png)
