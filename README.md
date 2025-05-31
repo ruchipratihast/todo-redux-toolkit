@@ -15,13 +15,13 @@ A simple Todo app built using **React**, **Redux Toolkit**, **Chakra UI**, and *
 ## 🖼️ Screenshots
 
 ### 1. Starting
-![Starting](./screenshot/1.png)
+![Screenshot 2025-05-31 183957](https://github.com/user-attachments/assets/40dc8d8c-54cf-4838-bcef-876116c2f842)
 
 ### 2. Added Some Todos
-![Added Todos](./screenshot/2.png)
+![Screenshot 2025-05-31 184120](https://github.com/user-attachments/assets/b1a47812-6fc9-49f5-884e-315c6fbb3fff)
 
 ### 3. Updating Todo
-![Updating Todo](./screenshot/3.png)
+![Screenshot 2025-05-31 184134](https://github.com/user-attachments/assets/4f03e004-eb4d-45b6-8ee4-c57886a2966f)
 
 ### 4. Updated Todo
-![Updated Todo](./screenshot/4.png)
+![Screenshot 2025-05-31 184148](https://github.com/user-attachments/assets/0d571001-40ec-4f4b-b3a5-6148529e2a6d)
